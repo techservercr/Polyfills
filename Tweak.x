@@ -1,8 +1,10 @@
 /*
- * Injection order (one WKUserScript bundle per injection time):
- *   Document start: blacklist bootstrap → scripts-priority → scripts
- *   Document end:   blacklist bootstrap (only if start bundle empty) → scripts-post
- * Blacklist bootstrap = `window.__pfBL` JSON + A_blacklist.js; each file wrapped with __pfShouldRun.
+ * Injection order:
+ *   Document start (critical): unwrapped blacklist + A_globals + iOS < 9 Symbol
+ *   Document start (rest):     scripts-priority + scripts (wrapped)
+ *   Document end:              scripts-post (wrapped)
+ * Critical is a separate WKUserScript so a SyntaxError in the huge rest bundle
+ * cannot skip identifier bindings (iOS 8 does not bind window.X as a global name).
  */
 
 #define CHECK_TARGET
@@ -105,6 +107,7 @@ static NSString *jsEscapedString(NSString *string) {
 }
 
 static dispatch_queue_t scriptLoadingQueue;
+static NSString *cachedCriticalStartScripts = nil;
 static NSString *cachedCombinedStartScripts = nil;
 static NSString *cachedCombinedEndScripts = nil;
 
@@ -129,11 +132,38 @@ static NSSet *disabledScriptsSet(void) {
 
 static void invalidateScriptBundleCache(void) {
     cachedDisabledScripts = nil;
+    cachedCriticalStartScripts = nil;
     cachedCombinedStartScripts = nil;
     cachedCombinedEndScripts = nil;
 }
 
 static NSString *loadScriptsForIOSVersion(NSString *basePath, NSString *scriptsDir);
+
+// Unwrapped into the critical start script. major 0 = all iOS versions.
+// Filenames are skipped by loadJSFromDirectory so they are not duplicated.
+typedef struct {
+    __unsafe_unretained NSString *path;
+    NSInteger major;
+    NSInteger minor;
+} PFUnwrappedStartScript;
+
+static const PFUnwrappedStartScript kUnwrappedStartScripts[] = {
+    { @"scripts-priority/base/A_globals.js", 0, 0 },
+    { @"scripts/9.0/Object.getOwnPropertySymbols.js", 9, 0 },
+};
+
+static NSSet *unwrappedStartFileNames(void) {
+    static NSSet *names;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        NSMutableSet *set = [NSMutableSet setWithObject:@"A_blacklist.js"];
+        for (size_t i = 0; i < sizeof(kUnwrappedStartScripts) / sizeof(kUnwrappedStartScripts[0]); i++) {
+            [set addObject:kUnwrappedStartScripts[i].path.lastPathComponent];
+        }
+        names = [set copy];
+    });
+    return names;
+}
 
 static NSString *loadJSFromDirectory(NSString *directoryPath) {
     NSFileManager *fileManager = [NSFileManager defaultManager];
@@ -156,7 +186,7 @@ static NSString *loadJSFromDirectory(NSString *directoryPath) {
     NSSet *disabledSet = disabledScriptsSet();
 
     for (NSString *fileName in jsFiles) {
-        if ([fileName isEqualToString:@"A_blacklist.js"]) continue;
+        if ([unwrappedStartFileNames() containsObject:fileName]) continue;
         if (disabledSet && [disabledSet containsObject:fileName.lowercaseString]) continue;
         NSString *filePath = [directoryPath stringByAppendingPathComponent:fileName];
         NSString *content = loadJSFromFile(filePath);
@@ -168,7 +198,7 @@ static NSString *loadJSFromDirectory(NSString *directoryPath) {
             content = [js stringByAppendingString:content];
         }
         NSString *escapedName = jsEscapedString(fileName);
-        NSString *wrapped = [NSString stringWithFormat:@"(function(n){try{if(window.__pfShouldRun && !window.__pfShouldRun(n)) return;}catch(e){}\n%@\n})(%@);\n", content, escapedName];
+        NSString *wrapped = [NSString stringWithFormat:@"(function(n){if(typeof window.__pfShouldRun==\"function\"&&!window.__pfShouldRun(n))return;\n%@\n})(%@);\n", content, escapedName];
         [combinedScript appendString:wrapped];
     }
 
@@ -221,17 +251,46 @@ static NSString *loadBlacklistBootstrapScript(void) {
     return [bootstrap copy];
 }
 
-static void prependBlacklistBootstrap(NSMutableString *bundle) {
-    NSString *bootstrap = loadBlacklistBootstrapScript();
-    if (bootstrap.length > 0) {
-        [bundle insertString:bootstrap atIndex:0];
+static NSString *loadUnwrappedScript(NSString *relativePath) {
+    NSString *path = [getPolyfillsBasePath() stringByAppendingPathComponent:relativePath];
+    NSString *content = loadJSFromFile(path);
+    return content.length ? content : @"";
+}
+
+static void appendUnwrappedScript(NSMutableString *bundle, NSString *relativePath) {
+    NSString *fileName = relativePath.lastPathComponent;
+    NSSet *disabledSet = disabledScriptsSet();
+    if (disabledSet && [disabledSet containsObject:fileName.lowercaseString]) return;
+    NSString *content = loadUnwrappedScript(relativePath);
+    if (!content.length) return;
+    [bundle appendString:content];
+    if (![bundle hasSuffix:@"\n"]) {
+        [bundle appendString:@"\n"];
+    }
+}
+
+static void appendUnwrappedStartScripts(NSMutableString *bundle) {
+    for (size_t i = 0; i < sizeof(kUnwrappedStartScripts) / sizeof(kUnwrappedStartScripts[0]); i++) {
+        PFUnwrappedStartScript spec = kUnwrappedStartScripts[i];
+        if (spec.major > 0 && isIOSVersionOrNewer(spec.major, spec.minor)) continue;
+        appendUnwrappedScript(bundle, spec.path);
     }
 }
 
 static void buildCombinedScriptBundles(void) {
     NSString *polyfillsBasePath = getPolyfillsBasePath();
+    NSMutableString *criticalStartScripts = [NSMutableString string];
     NSMutableString *combinedStartScripts = [NSMutableString string];
     NSMutableString *combinedEndScripts = [NSMutableString string];
+
+    NSString *bootstrap = loadBlacklistBootstrapScript();
+    if (bootstrap.length > 0) {
+        [criticalStartScripts appendString:bootstrap];
+        if (![criticalStartScripts hasSuffix:@"\n"]) {
+            [criticalStartScripts appendString:@"\n"];
+        }
+    }
+    appendUnwrappedStartScripts(criticalStartScripts);
 
     NSString *priorityScripts = loadScriptsForIOSVersion(polyfillsBasePath, @"scripts-priority");
     if (priorityScripts.length > 0) {
@@ -250,19 +309,14 @@ static void buildCombinedScriptBundles(void) {
         [combinedEndScripts appendString:postScripts];
     }
 
-    if (combinedStartScripts.length > 0) {
-        prependBlacklistBootstrap(combinedStartScripts);
-    } else if (combinedEndScripts.length > 0) {
-        prependBlacklistBootstrap(combinedEndScripts);
-    }
-
+    cachedCriticalStartScripts = [criticalStartScripts copy];
     cachedCombinedStartScripts = [combinedStartScripts copy];
     cachedCombinedEndScripts = [combinedEndScripts copy];
 }
 
 static void ensureScriptsLoaded(void) {
     dispatch_sync(scriptLoadingQueue, ^{
-        if (!cachedCombinedStartScripts && !cachedCombinedEndScripts) {
+        if (!cachedCriticalStartScripts && !cachedCombinedStartScripts && !cachedCombinedEndScripts) {
             buildCombinedScriptBundles();
         }
     });
@@ -459,6 +513,12 @@ static void overrideUserAgent(WKWebView *webView) {
 static void loadAndInjectScriptsImmediately(WKUserContentController *controller) {
     ensureScriptsLoaded();
 
+    if (cachedCriticalStartScripts.length > 0 && controller) {
+        [controller addUserScript:[[WKUserScript alloc] initWithSource:cachedCriticalStartScripts
+                                                          injectionTime:WKUserScriptInjectionTimeAtDocumentStart
+                                                       forMainFrameOnly:NO]];
+        HBLogDebug(@"Polyfills: Injected critical start scripts (%lu chars)", (unsigned long)cachedCriticalStartScripts.length);
+    }
     if (cachedCombinedStartScripts.length > 0 && controller) {
         [controller addUserScript:[[WKUserScript alloc] initWithSource:cachedCombinedStartScripts
                                                           injectionTime:WKUserScriptInjectionTimeAtDocumentStart

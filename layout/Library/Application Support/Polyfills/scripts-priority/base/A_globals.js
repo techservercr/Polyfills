@@ -1,0 +1,1 @@
+!function(o){function n(n){try{null!=o[n]&&(0,eval)("var "+n+' = window["'+n+'"]')}catch(n){}}(o.__pfBindGlobal=n)("performance")}(window);

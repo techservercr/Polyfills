@@ -1,0 +1,1 @@
+String.prototype.codePointAt||(String.prototype.codePointAt=function(t){if(null==this)throw TypeError("String.prototype.codePointAt called on null or undefined");var r=String(this),o=r.length,t=t?Number(t):0;if(!((t=t!=t?0:t)<0||o<=t)){var n=r.charCodeAt(t);if(55296<=n&&n<=56319&&t+1<o){o=r.charCodeAt(t+1);if(56320<=o&&o<=57343)return 1024*(n-55296)+o-56320+65536}return n}});

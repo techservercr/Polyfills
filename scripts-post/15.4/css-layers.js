@@ -456,23 +456,28 @@
         if (rescanScheduled >= MAX_RESCAN_PASSES) return;
         rescanScheduled++;
         setTimeout(function () {
-            processStyleSheets().finally(function () {
+            var done = function () {
                 if (rescanScheduled < MAX_RESCAN_PASSES) {
                     scheduleRescan(delay * 2);
                 }
-            });
+            };
+            processStyleSheets().then(done, done);
         }, delay);
     }
 
     // Initial processing — defer one tick so prefix polyfills register patch hooks.
     dbg("CSS @layer polyfill starting");
     setTimeout(function () {
-        processStyleSheets().finally(function () {
+        var done = function () {
             scheduleRescan(1000);
-        });
+        };
+        processStyleSheets().then(done, done);
     }, 0);
     if (document.readyState !== "complete") {
-        window.addEventListener("load", () => processStyleSheets(), { once: true });
+        window.addEventListener("load", function onLoad() {
+            window.removeEventListener("load", onLoad);
+            processStyleSheets();
+        });
     }
 
     if (window.__pfOnCssLayersUpdate) {

@@ -21,6 +21,19 @@ CURRENT_BUILD_STAMP="DEBUG=${DEBUG:-0}"
 
 echo "Building and optimizing polyfill scripts..."
 
+echo ""
+echo "Checking web API compatibility (browserslist: ios >= 8)..."
+API_COMPAT_RESULT=0
+if [ -d "$SCRIPT_DIR/node_modules/@mdn/browser-compat-data" ]; then
+    node "$SCRIPT_DIR/check-api-compat.js" || API_COMPAT_RESULT=1
+else
+    echo "  ⚠ @mdn/browser-compat-data not installed; skipping API compat check (run: npm install)"
+fi
+if [ "$API_COMPAT_RESULT" != "0" ]; then
+    echo "Build failed: one or more source scripts use APIs that are not iOS 8 compatible."
+    exit 1
+fi
+
 mkdir -p "$ARTIFACT_DIR"
 
 # layout/ is shared; per-mode built outputs live in .build-artifacts-0 / .build-artifacts-1.

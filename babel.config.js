@@ -21,7 +21,7 @@ module.exports = function (api) {
                 '@babel/preset-env',
                 Object.assign(
                     {
-                        targets: { browsers: ['ios >= 8'] },
+                        // targets: .browserslistrc
                         bugfixes: true,
                     },
                     isPrebuilt ? { exclude: helperHeavyExcludes } : {}

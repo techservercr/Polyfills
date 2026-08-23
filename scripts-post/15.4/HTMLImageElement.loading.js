@@ -29,6 +29,14 @@
     // Skip defer for non-scrolling UAs (e.g. search-engine crawlers).
     var supportsScrolling = 'onscroll' in window;
 
+    // NodeList.forEach is Safari 10+; old WebKit QSA also returns StaticNodeList.
+    function forEachNode(list, fn, thisArg) {
+        if (!list) {
+            return;
+        }
+        Array.prototype.forEach.call(list, fn, thisArg);
+    }
+
     var intersectionObserver;
 
     if ('IntersectionObserver' in window) {
@@ -159,7 +167,7 @@
     var pendingRestoreBound = false;
 
     function checkPendingLazyItems() {
-        document.querySelectorAll(pendingLazySelector).forEach(function (lazyItem) {
+        forEachNode(document.querySelectorAll(pendingLazySelector), function (lazyItem) {
             if (!hasPendingLazySource(lazyItem) || !isNearViewport(lazyItem)) {
                 return;
             }
@@ -215,7 +223,7 @@
                 return;
             }
 
-            document.querySelectorAll(pendingLazySelector).forEach(restoreSource);
+            forEachNode(document.querySelectorAll(pendingLazySelector), restoreSource);
         });
     }
 
@@ -299,7 +307,7 @@
         var roots = [];
         var seen = [];
 
-        (root || document).querySelectorAll(bareLazySelector).forEach(function (item) {
+        forEachNode((root || document).querySelectorAll(bareLazySelector), function (item) {
             var rootElement = item;
             var tagName = item.tagName.toLowerCase();
 
@@ -360,7 +368,7 @@
     function prepareAll(root) {
         var scope = root || document;
         wrapBareLazyElements(scope);
-        scope.querySelectorAll('noscript.loading-lazy').forEach(prepareElement);
+        forEachNode(scope.querySelectorAll('noscript.loading-lazy'), prepareElement);
         onPrinting();
     }
 
@@ -388,7 +396,8 @@
                     wrapBareLazyElements(node);
 
                     if (node.querySelectorAll) {
-                        node.querySelectorAll('noscript.loading-lazy').forEach(
+                        forEachNode(
+                            node.querySelectorAll('noscript.loading-lazy'),
                             prepareElement
                         );
                     }

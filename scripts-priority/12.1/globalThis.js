@@ -1,16 +1,8 @@
 // https://github.com/ungap/global-this
-(function (Object) {
-    typeof globalThis !== "object" &&
-        (this
-            ? get()
-            : (Object.defineProperty(Object.prototype, "_T_", {
-                  configurable: true,
-                  get: get,
-              }),
-              _T_));
-    function get() {
-        var global = this || self;
-        global.globalThis = global;
-        delete Object.prototype._T_;
+// Avoid `typeof globalThis`: Babel injects a _typeof helper that names Symbol
+// before scripts/9.0/Object.getOwnPropertySymbols.js has installed it.
+(function () {
+    if (window.globalThis !== window) {
+        window.globalThis = window;
     }
-})(Object);
+})();

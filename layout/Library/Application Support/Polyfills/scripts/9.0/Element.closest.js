@@ -1,0 +1,1 @@
+window.Element&&!Element.prototype.closest&&(Element.prototype.closest=function(e){var t=this;do{if(t.matches(e))return t}while(null!==(t=t.parentElement||t.parentNode)&&1===t.nodeType);return null});

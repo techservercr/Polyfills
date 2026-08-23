@@ -177,6 +177,9 @@
 
   descriptor.value = Symbol;
   defineProperty(G, 'Symbol', descriptor);
+  try {
+    G.Symbol = Symbol;
+  } catch (e) {}
 
   /** @type {(key: string) => Readonly<symbolish>} */
   // defining `Symbol.for(key)`
@@ -260,6 +263,9 @@
 
 (function (O, Symbol) {
   'use strict';
+  if (!Symbol) {
+    return;
+  }
 
   var dP = O.defineProperty;
   var ObjectProto = O.prototype;
@@ -291,9 +297,12 @@
       }
     }
   });
-}(Object, Symbol));
+}(Object, window.Symbol));
 
 (/** @type {(Si: symbolish, AP: unknown[] & Record<symbolish, unknown>, SP: String & Record<symbolish, unknown>) => void} */ function (Si, AP, SP) {
+  if (!Si) {
+    return;
+  }
 
   /** @type {<T>(this: T) => T} */
   function returnThis() { return this; }
@@ -327,7 +336,6 @@
   if (!SP[Si]) {
     // eslint-disable-next-line no-param-reassign
     SP[Si] = function () {
-      var fromCodePoint = String.fromCodePoint;
       var self = this;
       var i = 0;
       var length = self.length;
@@ -335,8 +343,21 @@
       var iterator = {
         next: function next() {
           var done = length <= i;
-          // eslint-disable-next-line no-extra-parens
-          var c = done ? '' : fromCodePoint(/** @type {number} */ (self.codePointAt(i)));
+          var c = '';
+          var cp;
+          if (!done) {
+            if (typeof self.codePointAt === 'function') {
+              cp = self.codePointAt(i);
+              if (cp > 0xFFFF) {
+                cp -= 0x10000;
+                c = String.fromCharCode(0xD800 + (cp >> 10), 0xDC00 + (cp & 0x3FF));
+              } else {
+                c = String.fromCharCode(cp);
+              }
+            } else {
+              c = self.charAt(i);
+            }
+          }
           i += c.length;
           return done ? { done: done } : { done: done, value: c };
         }
@@ -347,10 +368,11 @@
   }
 
 }(
-  // eslint-disable-next-line no-extra-parens
-  /** @type {symbolish} */ (Symbol.iterator),
-  // eslint-disable-next-line no-extra-parens
-  /** @type {unknown[] & Record<symbolish, unknown>} */ (Array.prototype),
-  // eslint-disable-next-line no-extra-parens
-  /** @type {String & Record<symbolish, unknown>} */ (String.prototype)
+  window.Symbol && window.Symbol.iterator,
+  Array.prototype,
+  String.prototype
 ));
+
+if (typeof window.__pfBindGlobal === 'function') {
+  window.__pfBindGlobal('Symbol');
+}

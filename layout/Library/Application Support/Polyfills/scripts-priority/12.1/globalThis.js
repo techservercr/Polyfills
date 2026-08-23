@@ -1,1 +1,1 @@
-function _typeof(o){return(_typeof="function"==typeof Symbol&&"symbol"==typeof Symbol.iterator?function(o){return typeof o}:function(o){return o&&"function"==typeof Symbol&&o.constructor===Symbol&&o!==Symbol.prototype?"symbol":typeof o})(o)}!function(t){function o(){var o=this||self;o.globalThis=o,delete t.prototype._T_}"object"!==("undefined"==typeof globalThis?"undefined":_typeof(globalThis))&&(this?o():(t.defineProperty(t.prototype,"_T_",{configurable:!0,get:o}),_T_))}(Object);
+window.globalThis!==window&&(window.globalThis=window);

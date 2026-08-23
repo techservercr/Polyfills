@@ -13,11 +13,16 @@
     "url": "https://github.com/PoomSmart/Polyfills/issues"
   },
   "homepage": "https://github.com/PoomSmart/Polyfills#readme",
+  "scripts": {
+    "compat": "node check-api-compat.js"
+  },
   "devDependencies": {
     "@babel/cli": "^7.28.0",
     "@babel/core": "^7.28.0",
     "@babel/preset-env": "^7.28.0",
+    "@mdn/browser-compat-data": "^6.1.1",
     "acorn": "^8.12.0",
+    "browserslist": "^4.25.0",
     "uglify-js": "^3.19.3"
   }
 }

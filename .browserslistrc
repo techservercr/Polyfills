@@ -1,0 +1,3 @@
+# Oldest runtime injected scripts must support (Safari / WKWebView).
+# Used by Babel (@babel/preset-env) and check-api-compat.js.
+ios >= 8

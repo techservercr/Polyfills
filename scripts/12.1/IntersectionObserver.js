@@ -767,7 +767,8 @@
      * @return {number} The elapsed time since the page was requested.
      */
     function now() {
-        return window.performance && performance.now && performance.now();
+        var perf = typeof window !== 'undefined' ? window.performance : undefined;
+        return perf && typeof perf.now === 'function' ? perf.now() : Date.now();
     }
 
 

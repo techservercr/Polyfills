@@ -1,1 +1,1 @@
-"forEach"in NodeList.prototype||(NodeList.prototype.forEach=[].forEach);
+!function(){var t=Array.prototype.forEach;if(t){"undefined"!=typeof NodeList&&o(NodeList.prototype),"undefined"!=typeof HTMLCollection&&o(HTMLCollection.prototype);try{document.querySelectorAll&&o(Object.getPrototypeOf(document.querySelectorAll("*")))}catch(o){}}function o(o){o&&o!==Object.prototype&&o!==Array.prototype&&"function"!=typeof o.forEach&&(o.forEach=t)}}();
