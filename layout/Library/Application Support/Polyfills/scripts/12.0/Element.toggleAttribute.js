@@ -1,0 +1,1 @@
+window.Element&&!Element.prototype.toggleAttribute&&Object.defineProperty(Element.prototype,"toggleAttribute",{value:function(t,e){return void 0!==e&&(e=!!e),this.hasAttribute(t)?!!e||(this.removeAttribute(t),!1):!1!==e&&(this.setAttribute(t,""),!0)},writable:!0,configurable:!0});

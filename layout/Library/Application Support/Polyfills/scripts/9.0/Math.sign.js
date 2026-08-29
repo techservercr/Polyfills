@@ -1,0 +1,1 @@
+Math.sign||(Math.sign=function(n){return 0===(n=+n)||n!=n?n:0<n?1:-1});

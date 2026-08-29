@@ -37,6 +37,19 @@
         Array.prototype.forEach.call(list, fn, thisArg);
     }
 
+    // Element.closest is iOS 9+; keep a walk for this file's own use on iOS 8.
+    function closest(el, selector) {
+        var matches;
+        while (el && el.nodeType === 1) {
+            matches = el.matches || el.webkitMatchesSelector;
+            if (matches && matches.call(el, selector)) {
+                return el;
+            }
+            el = el.parentElement || el.parentNode;
+        }
+        return null;
+    }
+
     var intersectionObserver;
 
     if ('IntersectionObserver' in window) {

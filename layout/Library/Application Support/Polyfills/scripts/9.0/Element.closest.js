@@ -1,1 +1,1 @@
-window.Element&&!Element.prototype.closest&&(Element.prototype.closest=function(e){var t=this;do{if(t.matches(e))return t}while(null!==(t=t.parentElement||t.parentNode)&&1===t.nodeType);return null});
+window.Element&&!Element.prototype.closest&&(Element.prototype.closest=function(e){var t,l=this;do{if((t=l.matches||l.webkitMatchesSelector||l.msMatchesSelector)&&t.call(l,e))return l}while(null!==(l=l.parentElement||l.parentNode)&&1===l.nodeType);return null});

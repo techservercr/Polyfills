@@ -1,0 +1,1 @@
+window.Element&&!Element.prototype.matches&&(Element.prototype.matches=Element.prototype.webkitMatchesSelector||Element.prototype.msMatchesSelector||Element.prototype.mozMatchesSelector);

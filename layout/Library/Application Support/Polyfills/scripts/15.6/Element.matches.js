@@ -1,1 +1,1 @@
-Element.prototype._originalMatches||(Element.prototype._originalMatches=Element.prototype.matches,Element.prototype.matches=function(e){e=e.replace(/:modal/g,".modal");return Element.prototype._originalMatches.call(this,e)});
+!function(){var t=Element.prototype,e=t.matches||t.webkitMatchesSelector;e&&!t._originalMatches&&(t._originalMatches=e,t.matches=function(e){e=e.replace(/:modal/g,".modal");return t._originalMatches.call(this,e)})}();

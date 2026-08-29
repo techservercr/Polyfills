@@ -15,10 +15,16 @@
         const original = proto[methodName];
         const wrapped = function () {
             const args = arguments;
+            var result;
+            var hasResult = false;
             for (let i = 0; i < hooks.length; i++) {
-                const result = hooks[i].apply(this, [original].concat(Array.prototype.slice.call(args)));
-                if (result !== undefined) return result;
+                const r = hooks[i].apply(this, [original].concat(Array.prototype.slice.call(args)));
+                if (r !== undefined) {
+                    result = r;
+                    hasResult = true;
+                }
             }
+            if (hasResult) return result;
             return original.apply(this, args);
         };
         wrapped.__pfHookInstalled = true;

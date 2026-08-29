@@ -1,0 +1,1 @@
+Array.of||(Array.of=function(){for(var r=0,n=arguments.length,a=new Array(n);r<n;)a[r]=arguments[r],r++;return a.length=n,a});

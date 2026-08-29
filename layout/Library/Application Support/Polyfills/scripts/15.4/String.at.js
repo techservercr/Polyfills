@@ -1,0 +1,1 @@
+String.prototype.at||Object.defineProperty(String.prototype,"at",{value:function(t){if(null==this)throw new TypeError("String.prototype.at called on null or undefined");var r=String(this),e=r.length,t=Number(t),t=(t!=t||0===t?t=0:t!==1/0&&t!==-1/0&&(t=(t<0?-1:1)*Math.floor(Math.abs(t))),0<=t?t:e+t);if(!(t<0||e<=t))return r.charAt(t)},writable:!0,configurable:!0});
