@@ -456,6 +456,14 @@
             ],
             [
                 {
+                    key: "abort",
+                    value: function abort(reason) {
+                        var controller = new AbortController();
+                        controller.abort(reason);
+                        return controller.signal;
+                    },
+                },
+                {
                     key: "timeout",
                     value: function timeout(time) {
                         var controller = new AbortController();

@@ -1,0 +1,1 @@
+"undefined"!=typeof AbortController&&"undefined"!=typeof AbortSignal&&"function"!=typeof AbortSignal.abort&&(AbortSignal.abort=function(o){var t=new AbortController;return 0<arguments.length?t.abort(o):t.abort(),t.signal});

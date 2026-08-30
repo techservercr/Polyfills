@@ -1,0 +1,1 @@
+!function(e){var o;"function"!=typeof e.queueMicrotask&&(e.queueMicrotask=function(e){if("function"!=typeof e)throw new TypeError("Failed to execute 'queueMicrotask' on 'Window': parameter 1 is not of type 'Function'.");(o=o||Promise.resolve()).then(e).catch(function(e){setTimeout(function(){throw e},0)})})}("undefined"!=typeof window?window:self);

@@ -33,6 +33,9 @@ static dispatch_queue_t blacklistCacheQueue;
             @"duck.ai",
             @"geeksforgeeks.org",
         ]];
+        defaultScriptBlacklists[@"oklch-fallback.js"] = [NSMutableSet setWithArray:@[
+            @"chatgpt.com",
+        ]];
         
         runtimeUABlacklist = [NSMutableSet set];
         runtimeGlobalBlacklist = [NSMutableSet set];

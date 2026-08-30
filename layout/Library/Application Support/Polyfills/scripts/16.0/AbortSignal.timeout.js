@@ -1,0 +1,1 @@
+"undefined"!=typeof AbortController&&"undefined"!=typeof AbortSignal&&"function"!=typeof AbortSignal.timeout&&(AbortSignal.timeout=function(t){var e=new AbortController;return setTimeout(function(){var o;try{o=new DOMException("The operation timed out.","TimeoutError")}catch(t){(o=new Error("The operation timed out.")).name="TimeoutError"}e.abort(o)},t),e.signal});

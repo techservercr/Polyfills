@@ -86,6 +86,7 @@ var AMBIGUOUS_INSTANCE = {
     set: true,
     has: true,
     add: true,
+    append: true,
     item: true,
     open: true,
     close: true,
@@ -99,14 +100,19 @@ var AMBIGUOUS_INSTANCE = {
 var RELATED_CTORS = {
     IntersectionObserver: ['IntersectionObserverEntry'],
     ResizeObserver: ['ResizeObserverEntry'],
-    AbortController: ['AbortSignal']
+    AbortController: ['AbortSignal'],
+    TextEncoder: ['TextDecoder']
 };
 
 var STEM_COVERS = {
     'Object.getOwnPropertySymbols': ['Symbol'],
     'Element.SmoothScroll': ['Element.scroll', 'Element.scrollTo', 'Element.scrollBy'],
     RWTStream: ['ReadableStream', 'WritableStream', 'TransformStream'],
-    'screen.orientation': ['ScreenOrientation']
+    'screen.orientation': ['ScreenOrientation'],
+    A_URLSearchParams: ['URLSearchParams'],
+    fetch: ['Headers', 'Request', 'Response'],
+    'Element.replaceChildren': ['Document.replaceChildren', 'DocumentFragment.replaceChildren'],
+    'Map.getOrInsert': ['WeakMap.getOrInsert', 'WeakMap.getOrInsertComputed']
 };
 
 function parseFolderVersion(folder) {
