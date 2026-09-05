@@ -1,3 +1,4 @@
+(function () {
 if (typeof Uint8Array === 'function') {
     const base64Alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/';
     const base64UrlAlphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_';
@@ -259,3 +260,4 @@ if (typeof Uint8Array === 'function') {
     define(Uint8Array.prototype, 'setFromBase64', setFromBase64);
     define(Uint8Array.prototype, 'setFromHex', setFromHex);
 }
+})();

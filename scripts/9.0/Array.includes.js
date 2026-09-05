@@ -1,3 +1,4 @@
+(function () {
 // https://github.com/kevlatus/polyfill-array-includes
 if (!Array.prototype.includes) {
     Object.defineProperty(Array.prototype, 'includes', {
@@ -34,3 +35,4 @@ if (!Array.prototype.includes) {
         }
     });
 }
+})();

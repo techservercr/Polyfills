@@ -1,3 +1,4 @@
+(function () {
 // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/values
 if (!Array.prototype.values) {
     Object.defineProperty(Array.prototype, 'values', {
@@ -22,3 +23,4 @@ if (!Array.prototype.values) {
         configurable: true
     });
 }
+})();

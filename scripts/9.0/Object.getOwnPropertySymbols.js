@@ -1,3 +1,4 @@
+(function () {
 // https://github.com/es-shims/get-own-property-symbols/
 (function (Object, GOPS) {
   'use strict';
@@ -376,3 +377,4 @@
 if (typeof window.__pfBindGlobal === 'function') {
   window.__pfBindGlobal('Symbol');
 }
+})();

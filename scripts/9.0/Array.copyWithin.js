@@ -1,3 +1,4 @@
+(function () {
 // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/copyWithin
 if (!Array.prototype.copyWithin) {
     Object.defineProperty(Array.prototype, 'copyWithin', {
@@ -37,3 +38,4 @@ if (!Array.prototype.copyWithin) {
         configurable: true
     });
 }
+})();

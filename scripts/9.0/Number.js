@@ -1,3 +1,4 @@
+(function () {
 // Claude
 if (!Number.EPSILON) {
     Number.EPSILON = Math.pow(2, -52);
@@ -39,3 +40,4 @@ if (!Number.isSafeInteger) {
             Math.abs(value) <= Number.MAX_SAFE_INTEGER;
     };
 }
+})();

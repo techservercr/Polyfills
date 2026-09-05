@@ -1,3 +1,4 @@
+(function () {
 function defineSetMethod(name, fn) {
     if (!Set.prototype[name]) {
         Object.defineProperty(Set.prototype, name, {
@@ -90,3 +91,4 @@ defineSetMethod('isDisjointFrom', function (other) {
 
     return result;
 });
+})();

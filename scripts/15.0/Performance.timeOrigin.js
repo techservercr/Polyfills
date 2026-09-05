@@ -1,3 +1,4 @@
+(function () {
 if (window.performance && !('timeOrigin' in window.performance)) {
     Object.defineProperty(window.performance, 'timeOrigin', {
         get: function () {
@@ -12,3 +13,4 @@ if (window.performance && !('timeOrigin' in window.performance)) {
         configurable: true
     });
 }
+})();

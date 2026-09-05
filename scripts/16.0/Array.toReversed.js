@@ -1,3 +1,4 @@
+(function () {
 if (!Array.prototype.toReversed) {
     Object.defineProperty(Array.prototype, 'toReversed', {
         value: function () {
@@ -10,3 +11,4 @@ if (!Array.prototype.toReversed) {
         configurable: true
     });
 }
+})();

@@ -1,3 +1,4 @@
+(function () {
 if (!String.prototype.matchAll) {
     String.prototype.matchAll = function (regexp) {
         if (regexp == null) {
@@ -32,3 +33,4 @@ if (!String.prototype.matchAll) {
         })();
     };
 }
+})();

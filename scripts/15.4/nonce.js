@@ -1,25 +1,24 @@
-if (!("nonce" in HTMLElement.prototype)) {
-    Object.defineProperty(
-        HTMLElement.prototype,
-        "nonce",
-        {
-            get() {
-                return this.getAttribute("nonce") || "";
-            },
-            set(v) {
-                this.setAttribute("nonce", v);
+(function () {
+    if (!("nonce" in HTMLElement.prototype)) {
+        Object.defineProperty(
+            HTMLElement.prototype,
+            "nonce",
+            {
+                get() {
+                    return this.getAttribute("nonce") || "";
+                },
+                set(v) {
+                    this.setAttribute("nonce", v);
+                }
             }
-        }
-    );
-}
+        );
+    }
 
-(function() {
-    const origAppend = Element.prototype.appendChild;
+    var origAppend = Element.prototype.appendChild;
 
-    Element.prototype.appendChild = function(node) {
-
+    Element.prototype.appendChild = function (node) {
         if (node && node.tagName === "SCRIPT") {
-            const pageNonce =
+            var pageNonce =
                 document.querySelector("script[nonce]")?.nonce ||
                 document.querySelector("script[nonce]")?.getAttribute("nonce");
 

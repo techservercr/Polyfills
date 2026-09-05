@@ -1,3 +1,4 @@
+(function () {
 // https://github.com/iamdustan/smoothscroll
 "use strict";
 
@@ -459,3 +460,4 @@ if (typeof exports === "object" && typeof module !== "undefined") {
     // global
     polyfill();
 }
+})();

@@ -1,3 +1,4 @@
+(function () {
 // https://github.com/microsoft/pxt/blob/master/webapp/src/polyfills.ts
 if (!Element.prototype.checkVisibility) {
     Element.prototype.checkVisibility = function checkVisibility(options = {}) {
@@ -45,3 +46,4 @@ if (!Element.prototype.checkVisibility) {
         return true;
     }
 }
+})();

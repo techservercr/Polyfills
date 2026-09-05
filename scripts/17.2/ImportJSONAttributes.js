@@ -1,3 +1,4 @@
+(function () {
 if (typeof window !== 'undefined' && !("importJsonModule" in window)) {
     const hasOwn = Object.prototype.hasOwnProperty;
     const cache = {};
@@ -115,3 +116,4 @@ if (typeof window !== 'undefined' && !("importJsonModule" in window)) {
         }
     }
 }
+})();

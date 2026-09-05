@@ -1,3 +1,4 @@
+(function () {
 // https://github.com/KhaledElAnsari/String.prototype.padStart
 String.prototype.padStart = String.prototype.padStart ? String.prototype.padStart : function (targetLength, padString) {
     targetLength = Math.floor(targetLength) || 0;
@@ -39,3 +40,4 @@ String.prototype.padEnd = String.prototype.padEnd ? String.prototype.padEnd : fu
 
     return String(this).slice(0) + pad;
 };
+})();

@@ -1,3 +1,4 @@
+(function () {
 // https://developer.mozilla.org/en-US/docs/Web/API/Element/matches
 if (window.Element && !Element.prototype.matches) {
     Element.prototype.matches =
@@ -5,3 +6,4 @@ if (window.Element && !Element.prototype.matches) {
         Element.prototype.msMatchesSelector ||
         Element.prototype.mozMatchesSelector;
 }
+})();

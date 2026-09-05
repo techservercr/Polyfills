@@ -1,3 +1,4 @@
+(function () {
 var $toString = Object.prototype.toString;
 var $indexOf = String.prototype.indexOf;
 var $lastIndexOf = String.prototype.lastIndexOf;
@@ -72,3 +73,4 @@ if (!String.prototype.includes) {
         }
     };
 }
+})();

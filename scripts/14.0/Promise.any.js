@@ -1,3 +1,4 @@
+(function () {
 // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise/any
 if (typeof Promise !== 'undefined' && typeof Promise.any !== 'function') {
     Promise.any = function (iterable) {
@@ -22,3 +23,4 @@ if (typeof Promise !== 'undefined' && typeof Promise.any !== 'function') {
         });
     };
 }
+})();

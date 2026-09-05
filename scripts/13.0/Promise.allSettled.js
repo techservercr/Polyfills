@@ -1,3 +1,4 @@
+(function () {
 Promise.allSettled = Promise.allSettled || (function (promises) {
     return Promise.all(promises.map(function (p) {
         return p
@@ -13,3 +14,4 @@ Promise.allSettled = Promise.allSettled || (function (promises) {
             });
     }));
 });
+})();

@@ -1,3 +1,4 @@
+(function () {
 if (!("sumPrecise" in Math)) {
     const POW_2_1023 = Math.pow(2, 1023);
     const MAX_SAFE_INTEGER = Math.pow(2, 53) - 1;
@@ -172,3 +173,4 @@ function closeIterator(iterator) {
     const returnMethod = iterator && iterator.return;
     if (typeof returnMethod === 'function') returnMethod.call(iterator);
 }
+})();

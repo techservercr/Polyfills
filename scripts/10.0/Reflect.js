@@ -1,3 +1,4 @@
+(function () {
 // https://github.com/microsoft/reflect-metadata
 "use strict";
 /*! *****************************************************************************
@@ -1129,3 +1130,4 @@ function GetMetadataProvider(O, P, Create) {
     }
     return undefined;
 }
+})();

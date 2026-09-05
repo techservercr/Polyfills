@@ -1,3 +1,4 @@
+(function () {
 /**
  * github/fetch v3.6.20
  * https://github.com/github/fetch
@@ -645,3 +646,4 @@ if (!g.fetch) {
   g.Request = Request
   g.Response = Response
 }
+})();

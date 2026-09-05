@@ -1,3 +1,4 @@
+(function () {
 // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/repeat
 if (!String.prototype.repeat) {
     Object.defineProperty(String.prototype, 'repeat', {
@@ -40,3 +41,4 @@ if (!String.prototype.repeat) {
         configurable: true
     });
 }
+})();

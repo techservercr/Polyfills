@@ -1,3 +1,4 @@
+(function () {
 // https://developer.mozilla.org/en-US/docs/Web/API/Element/toggleAttribute
 if (window.Element && !Element.prototype.toggleAttribute) {
     Object.defineProperty(Element.prototype, 'toggleAttribute', {
@@ -17,3 +18,4 @@ if (window.Element && !Element.prototype.toggleAttribute) {
         configurable: true
     });
 }
+})();

@@ -1,3 +1,4 @@
+(function () {
 // https://gist.github.com/jrrio/4dd2bec652dd642517a390172be27da2
 if (typeof Object.assign != "function") {
     Object.defineProperty(Object, "assign", {
@@ -23,3 +24,4 @@ if (typeof Object.assign != "function") {
         configurable: true
     });
 }
+})();

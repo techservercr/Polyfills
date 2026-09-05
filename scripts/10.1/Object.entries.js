@@ -1,3 +1,4 @@
+(function () {
 // https://github.com/KhaledElAnsari/Object.entries
 Object.entries = Object.entries ? Object.entries : function (obj) {
     var allowedTypes = ["[object String]", "[object Object]", "[object Array]", "[object Function]"];
@@ -23,3 +24,4 @@ Object.entries = Object.entries ? Object.entries : function (obj) {
         return objType === "[object Array]" ? result : result.sort(function (a, b) { return a[1] - b[1]; });
     }
 };
+})();

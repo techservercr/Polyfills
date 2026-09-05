@@ -1,3 +1,4 @@
+(function () {
 // https://gist.github.com/developit/e96097d9b657f2a2f3e588ffde433437
 if (typeof Promise !== 'undefined' && !Promise.prototype.finally) {
     Promise.prototype.finally = function (callback) {
@@ -19,3 +20,4 @@ if (typeof Promise !== 'undefined' && !Promise.prototype.finally) {
         );
     };
 }
+})();

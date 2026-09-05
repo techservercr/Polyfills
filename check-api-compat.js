@@ -101,7 +101,8 @@ var RELATED_CTORS = {
     IntersectionObserver: ['IntersectionObserverEntry'],
     ResizeObserver: ['ResizeObserverEntry'],
     AbortController: ['AbortSignal'],
-    TextEncoder: ['TextDecoder']
+    TextEncoder: ['TextDecoder'],
+    LockManager: ['Lock']
 };
 
 var STEM_COVERS = {
@@ -112,7 +113,8 @@ var STEM_COVERS = {
     A_URLSearchParams: ['URLSearchParams'],
     fetch: ['Headers', 'Request', 'Response'],
     'Element.replaceChildren': ['Document.replaceChildren', 'DocumentFragment.replaceChildren'],
-    'Map.getOrInsert': ['WeakMap.getOrInsert', 'WeakMap.getOrInsertComputed']
+    'Map.getOrInsert': ['WeakMap.getOrInsert', 'WeakMap.getOrInsertComputed'],
+    LockManager: ['Navigator.locks']
 };
 
 function parseFolderVersion(folder) {

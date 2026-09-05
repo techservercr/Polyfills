@@ -1,3 +1,4 @@
+(function () {
 // https://github.com/VitorLuizC/object-descriptors
 const getKeys = (object) => {
     if (typeof Reflect === 'object' && typeof Reflect.ownKeys === 'function')
@@ -32,3 +33,4 @@ if (typeof Object.getOwnPropertyDescriptors !== 'function') {
         configurable: true,
     });
 }
+})();

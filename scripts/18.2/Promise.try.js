@@ -1,3 +1,4 @@
+(function () {
 if (!("try" in Promise)) {
     Object.defineProperty(Promise, 'try', {
         value: function (callback) {
@@ -16,3 +17,4 @@ if (!("try" in Promise)) {
         configurable: true
     });
 }
+})();

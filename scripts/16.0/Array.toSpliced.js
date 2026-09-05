@@ -1,3 +1,4 @@
+(function () {
 // Claude
 if (!Array.prototype.toSpliced) {
     Object.defineProperty(Array.prototype, 'toSpliced', {
@@ -67,3 +68,4 @@ if (!Array.prototype.toSpliced) {
         enumerable: false
     });
 }
+})();

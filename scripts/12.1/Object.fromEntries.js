@@ -1,3 +1,4 @@
+(function () {
 // https://github.com/feross/fromentries
 if (!Object.fromEntries) {
     Object.fromEntries = function (iterable) {
@@ -12,3 +13,4 @@ if (!Object.fromEntries) {
         }, {});
     };
 }
+})();

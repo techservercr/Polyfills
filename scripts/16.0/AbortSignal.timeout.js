@@ -1,3 +1,4 @@
+(function () {
 // https://developer.mozilla.org/en-US/docs/Web/API/AbortSignal/timeout_static
 if (
     typeof AbortController !== 'undefined' &&
@@ -19,3 +20,4 @@ if (
         return controller.signal;
     };
 }
+})();

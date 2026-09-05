@@ -1,3 +1,4 @@
+(function () {
 // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/fromCodePoint
 if (!String.fromCodePoint) {
     String.fromCodePoint = function () {
@@ -25,3 +26,4 @@ if (!String.fromCodePoint) {
         return result + fromCharCode.apply(null, units);
     };
 }
+})();

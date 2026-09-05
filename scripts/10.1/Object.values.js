@@ -1,3 +1,4 @@
+(function () {
 // https://github.com/KhaledElAnsari/Object.values
 Object.values = Object.values ? Object.values : function (obj) {
     var allowedTypes = ["[object String]", "[object Object]", "[object Array]", "[object Function]"];
@@ -24,3 +25,4 @@ Object.values = Object.values ? Object.values : function (obj) {
         return result;
     }
 };
+})();

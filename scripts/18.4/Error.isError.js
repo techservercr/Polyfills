@@ -1,3 +1,4 @@
+(function () {
 if (!("isError" in Error)) {
     Object.defineProperty(Error, 'isError', {
         value: function isError(value) {
@@ -23,3 +24,4 @@ if (!("isError" in Error)) {
         configurable: true
     });
 }
+})();

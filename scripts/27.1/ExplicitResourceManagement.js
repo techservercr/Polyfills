@@ -1,3 +1,4 @@
+(function () {
 if (typeof Symbol === 'function') {
     const global = typeof globalThis !== 'undefined' ? globalThis : window;
 
@@ -254,3 +255,4 @@ if (typeof Symbol === 'function') {
         });
     }
 }
+})();

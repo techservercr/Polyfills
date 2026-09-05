@@ -1,3 +1,4 @@
+(function () {
 const root =
   (typeof globalThis !== "undefined" && globalThis) ||
   (typeof self !== "undefined" && self) ||
@@ -138,3 +139,4 @@ if (shouldPolyfillEventTarget) {
     return EventTarget;
   })();
 }
+})();

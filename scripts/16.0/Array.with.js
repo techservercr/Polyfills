@@ -1,3 +1,4 @@
+(function () {
 // Claude
 if (!Array.prototype.with) {
     Object.defineProperty(Array.prototype, 'with', {
@@ -45,3 +46,4 @@ if (!Array.prototype.with) {
         enumerable: false
     });
 }
+})();

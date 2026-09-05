@@ -1,3 +1,4 @@
+(function () {
 // Claude
 if (!Array.prototype.toSorted) {
     Object.defineProperty(Array.prototype, 'toSorted', {
@@ -31,3 +32,4 @@ if (!Array.prototype.toSorted) {
         configurable: true
     });
 }
+})();

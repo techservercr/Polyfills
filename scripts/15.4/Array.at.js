@@ -1,3 +1,4 @@
+(function () {
 if (!Array.prototype.at) {
     Object.defineProperty(Array.prototype, 'at', {
         value: function (index) {
@@ -9,3 +10,4 @@ if (!Array.prototype.at) {
         configurable: true
     });
 }
+})();

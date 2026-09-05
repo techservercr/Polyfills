@@ -1,3 +1,4 @@
+(function () {
 if (!String.prototype.isWellFormed || !String.prototype.toWellFormed) {
     if (!String.prototype.isWellFormed) {
         Object.defineProperty(String.prototype, 'isWellFormed', {
@@ -59,3 +60,4 @@ if (!String.prototype.isWellFormed || !String.prototype.toWellFormed) {
         });
     }
 }
+})();

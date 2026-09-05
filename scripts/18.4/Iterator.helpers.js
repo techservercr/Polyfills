@@ -1,3 +1,4 @@
+(function () {
 const global = typeof globalThis === 'object' ? globalThis : window;
 const iteratorSymbol = typeof Symbol === 'function' && Symbol.iterator;
 const iteratorPrototype = iteratorSymbol && typeof Object.getPrototypeOf === 'function'
@@ -354,3 +355,4 @@ function defineValue(target, name, value) {
         });
     }
 }
+})();

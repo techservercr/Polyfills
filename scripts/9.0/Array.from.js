@@ -1,3 +1,4 @@
+(function () {
 // https://gist.github.com/topicus/e179b1309e97f1e09e5e
 if (!Array.from) {
     Array.from = (function () {
@@ -97,3 +98,4 @@ if (!Array.from) {
         };
     }());
 }
+})();

@@ -1,3 +1,4 @@
+(function () {
 if (!crypto) require('crypto');
 crypto.randomUUID = crypto.randomUUID || function () {
     return (
@@ -7,3 +8,4 @@ crypto.randomUUID = crypto.randomUUID || function () {
             }
         ));
 };
+})();

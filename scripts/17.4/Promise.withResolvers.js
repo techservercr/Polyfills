@@ -1,3 +1,4 @@
+(function () {
 if (typeof Promise.withResolvers === 'undefined') {
     Promise.withResolvers = function () {
         let resolve, reject
@@ -8,3 +9,4 @@ if (typeof Promise.withResolvers === 'undefined') {
         return { promise, resolve, reject }
     }
 }
+})();

@@ -1,3 +1,4 @@
+(function () {
 // Polyfill for Float16Array, DataView float16 accessors, and Math.f16round
 {
     const globals =
@@ -610,3 +611,4 @@
         });
     }
 }
+})();

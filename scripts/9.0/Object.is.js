@@ -1,3 +1,4 @@
+(function () {
 // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/is
 if (!Object.is) {
     Object.is = function (x, y) {
@@ -7,3 +8,4 @@ if (!Object.is) {
         return x !== x && y !== y;
     };
 }
+})();

@@ -1,3 +1,4 @@
+(function () {
 if (!Array.prototype.findLastIndex) {
     Object.defineProperty(Array.prototype, 'findLastIndex', {
         value: function (callback, thisArg) {
@@ -23,3 +24,4 @@ if (!Array.prototype.findLastIndex) {
         configurable: true
     });
 }
+})();

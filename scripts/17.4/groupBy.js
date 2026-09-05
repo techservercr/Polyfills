@@ -1,3 +1,4 @@
+(function () {
 if (typeof Object.groupBy === 'undefined' || (typeof Map === 'function' && typeof Map.groupBy === 'undefined')) {
     function define(target, name, value) {
         if (!(name in target)) {
@@ -65,3 +66,4 @@ if (typeof Object.groupBy === 'undefined' || (typeof Map === 'function' && typeo
         });
     }
 }
+})();

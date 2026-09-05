@@ -1,3 +1,4 @@
+(function () {
 // https://developer.mozilla.org/en-US/docs/Web/API/Element/closest
 if (window.Element && !Element.prototype.closest) {
     Element.prototype.closest = function (selectors) {
@@ -13,3 +14,4 @@ if (window.Element && !Element.prototype.closest) {
         return null;
     };
 }
+})();

@@ -1,3 +1,4 @@
+(function () {
 // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/sign
 if (!Math.sign) {
     Math.sign = function (x) {
@@ -8,3 +9,4 @@ if (!Math.sign) {
         return x > 0 ? 1 : -1;
     };
 }
+})();

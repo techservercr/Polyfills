@@ -1,3 +1,4 @@
+(function () {
 // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/codePointAt
 if (!String.prototype.codePointAt) {
     String.prototype.codePointAt = function (position) {
@@ -23,3 +24,4 @@ if (!String.prototype.codePointAt) {
         return first;
     };
 }
+})();
