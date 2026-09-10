@@ -1,0 +1,36 @@
+name: Build DEB Package
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-config: '18'
+
+      - name: Install Dependencies & Build JS
+        run: |
+          npm install
+          ./build-scripts.sh
+
+      - name: Setup Theos
+        run: |
+          bash -c "$(curl -fsSL https://raw.githubusercontent.com/theos/theos/master/bin/install-theos)"
+          echo "THEOS=/root/theos" >> $GITHUB_ENV
+
+      - name: Build Package
+        run: |
+          make package FINALPACKAGE=1
+
+      - name: Upload DEB Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: polyfills-deb
+          path: packages/*.deb
